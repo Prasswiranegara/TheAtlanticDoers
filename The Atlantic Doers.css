@@ -1,0 +1,918 @@
+/* Retro IBM 5150 Theme - The Atlantic Doers */
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'VT323', monospace;
+    background: #000;
+    color: #00ff00;
+    overflow: hidden;
+    cursor: crosshair;
+}
+
+/* CRT Effect */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 255, 0, 0.03),
+        rgba(0, 255, 0, 0.03) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    z-index: 1000;
+}
+
+/* Screen Container */
+.screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Boot Screen */
+#boot-screen {
+    flex-direction: column;
+}
+
+.boot-text {
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.4;
+    animation: boot-flicker 0.1s infinite;
+}
+
+.boot-line {
+    margin: 8px 0;
+    opacity: 0;
+    animation: boot-line-appear 0.5s forwards;
+}
+
+.boot-line:nth-child(1) { animation-delay: 0.5s; }
+.boot-line:nth-child(2) { animation-delay: 1s; }
+.boot-line:nth-child(3) { animation-delay: 1.5s; }
+.boot-line:nth-child(4) { animation-delay: 2s; }
+.boot-line:nth-child(5) { animation-delay: 2.5s; }
+.boot-line:nth-child(6) { animation-delay: 3s; }
+
+@keyframes boot-line-appear {
+    to { opacity: 1; }
+}
+
+@keyframes boot-flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+/* Desktop */
+#desktop {
+    background: radial-gradient(ellipse at center, #001100 0%, #000000 100%);
+}
+
+.desktop-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.desktop {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 40px;
+}
+
+/* Desktop Icons */
+.icon {
+    position: absolute;
+    text-align: center;
+    cursor: pointer;
+    padding: 15px;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* Icon positions - baris utama di atas, ikon utilitas di dekat bar bawah */
+.icon:nth-child(1) { top: 40px; left: 10%; transform: translateX(-50%); }
+.icon:nth-child(2) { top: 40px; left: 30%; transform: translateX(-50%); }
+.icon:nth-child(3) { top: 40px; left: 50%; transform: translateX(-50%); }
+.icon:nth-child(4) { top: 40px; left: 70%; transform: translateX(-50%); }
+.icon:nth-child(5) { top: 40px; left: 90%; transform: translateX(-50%); }
+
+/* Ikon utilitas: Kalkulator dan Minesweeper di dekat bar bawah */
+.icon:nth-child(6) { bottom: 70px; left: 10%; top: auto; transform: translateX(-50%); }
+.icon:nth-child(7) { bottom: 70px; left: 90%; top: auto; transform: translateX(-50%); }
+
+.icon:hover {
+    border-color: #00ff00;
+    background: rgba(0, 255, 0, 0.1);
+}
+
+.icon:active {
+    background: rgba(0, 255, 0, 0.2);
+}
+
+.icon-image {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    padding: 20px;
+    border: 2px solid #00ff00;
+    background: rgba(0, 255, 0, 0.05);
+    text-shadow: 0 0 8px #00ff00;
+}
+
+.icon-label {
+    font-size: 16px;
+    color: #00ff00;
+    text-shadow: 0 0 4px #00ff00;
+}
+
+/* Terminal Windows - Retro Green Style */
+.terminal-window {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 500px;
+    height: 70%;
+    max-height: 350px;
+    background: #000;
+    border: 3px solid #00ff00;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+    z-index: 100;
+    overflow: hidden;
+}
+
+/* Posisi awal khusus untuk jendela utilitas */
+
+#calculator-window {
+    left: 10px;
+    bottom: 60px; /* dekat tepat di atas status bar (50px tinggi bar + 10px jarak) */
+    top: auto;
+    transform: none;
+}
+
+#minesweeper-window {
+    right: 10px;
+    bottom: 60px;
+    left: auto;
+    top: auto;
+    transform: none;
+}
+
+.window-header {
+    background: #00ff00;
+    color: #000;
+    padding: 8px 15px;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #00ff00;
+}
+
+.close-btn {
+    background: #ff0000;
+    color: #ffffff;
+    border: none;
+    padding: 4px 8px;
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.close-btn:hover {
+    background: #ff6666;
+    transform: scale(1.1);
+}
+
+.terminal-content {
+    padding: 20px;
+    height: calc(100% - 45px);
+    overflow-y: auto;
+    font-size: 16px;
+    line-height: 1.8;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    background: #000;
+    color: #00ff00;
+}
+
+.terminal-text p {
+    margin: 8px 0;
+}
+
+/* Links */
+.download-link {
+    color: #00ff00;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.download-link:hover {
+    background: #00ff00;
+    color: #000;
+    text-decoration: none;
+}
+
+/* Upload Button */
+.upload-btn {
+    background: #00ff00;
+    color: #000;
+    border: none;
+    padding: 8px 16px;
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin: 10px 0;
+}
+
+.upload-btn:hover {
+    background: #00cc00;
+    color: #fff;
+    transform: scale(1.05);
+}
+
+.hidden-input {
+    display: none;
+}
+
+.upload-preview {
+    margin-top: 10px;
+}
+
+.upload-label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+}
+
+#uploadPreview img {
+    max-width: 100%;
+    max-height: 150px;
+    border: 2px solid #00ff00;
+    margin: 5px 0;
+}
+
+.icon.drag-over {
+    border-color: #ffff00;
+    background: rgba(255, 255, 0, 0.1);
+}
+
+.drag-placeholder {
+    border: 2px dashed #ffff00;
+    background: rgba(255, 255, 0, 0.05);
+}
+
+/* Window dragging */
+.terminal-window.dragging {
+    cursor: move !important;
+    z-index: 1000;
+}
+
+.window-header.dragging {
+    cursor: move !important;
+}
+
+/* Scrollbar - Retro Green */
+.terminal-content::-webkit-scrollbar {
+    width: 12px;
+}
+
+.terminal-content::-webkit-scrollbar-track {
+    background: #000;
+    border: 1px solid #00ff00;
+}
+
+.terminal-content::-webkit-scrollbar-thumb {
+    background: #00ff00;
+    border: 1px solid #000;
+}
+
+.terminal-content::-webkit-scrollbar-thumb:hover {
+    background: #00cc00;
+}
+
+/* Taskbar */
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.9);
+    border-top: 2px solid #00ff00;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000;
+    font-family: 'VT323', monospace;
+    color: #00ff00;
+}
+
+.taskbar-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.taskbar-center {
+    position: relative;
+}
+
+.taskbar-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 14px;
+}
+
+.taskbar-item {
+    cursor: pointer;
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+.taskbar-item:hover {
+    border-color: #00ff00;
+    background: rgba(0, 255, 0, 0.1);
+}
+
+.profile-btn {
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    padding: 5px 15px;
+    cursor: pointer;
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    transition: all 0.2s;
+}
+
+/* Power button di samping jam */
+
+.power-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    background: rgba(0, 255, 0, 0.1); /* hijau lembut default */
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    cursor: pointer;
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    transition: all 0.2s;
+}
+
+.power-button:hover {
+    background: rgba(255, 0, 0, 0.25); /* merah saat hover */
+    border-color: #ff5555;
+    color: #ff7777;
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+}
+
+.power-button:active {
+    background: rgba(255, 0, 0, 0.5); /* merah lebih menyala saat ditekan */
+    border-color: #ff0000;
+    color: #ffffff;
+    box-shadow: 0 0 12px rgba(255, 0, 0, 0.9);
+}
+
+.power-icon {
+    font-size: 18px;
+}
+
+.profile-btn:hover {
+    background: rgba(0, 255, 0, 0.2);
+}
+
+.profile-dropdown {
+    position: absolute;
+    bottom: 45px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    border: 2px solid #00ff00;
+    min-width: 150px;
+    z-index: 1001;
+    display: none;
+}
+
+.profile-dropdown.show {
+    display: block;
+}
+
+.profile-option {
+    padding: 10px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #00ff00;
+    transition: all 0.2s;
+}
+
+.profile-option:last-child {
+    border-bottom: none;
+}
+
+.profile-option:hover {
+    background: rgba(0, 255, 0, 0.1);
+}
+
+.mute-btn {
+    background: none;
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-family: 'VT323', monospace;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.mute-btn:hover {
+    background: rgba(0, 255, 0, 0.1);
+}
+
+.mute-btn.muted {
+    background: rgba(255, 0, 0, 0.2);
+    border-color: #ff0000;
+    color: #ff0000;
+}
+.blinking-cursor::after {
+    content: "_";
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* Status Bar */
+.status-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    background: rgba(0, 0, 0, 0.95);
+    border-top: 2px solid #00ff00;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1001;
+    font-family: 'VT323', monospace;
+    color: #00ff00;
+    box-shadow: 0 -2px 10px rgba(0, 255, 0, 0.3);
+}
+
+.status-left,
+.status-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.status-center {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Weather Widget */
+.weather-widget {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 10px;
+    border: 1px solid #00ff00;
+    background: rgba(0, 255, 0, 0.05);
+    font-size: 18px;
+}
+
+.weather-icon {
+    font-size: 20px;
+}
+
+.weather-temp {
+    font-size: 16px;
+    text-shadow: 0 0 4px #00ff00;
+}
+
+/* Clock Widget */
+.clock-widget {
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 0 0 8px #00ff00;
+    padding: 5px 10px;
+    border: 1px solid #00ff00;
+    background: rgba(0, 255, 0, 0.05);
+    min-width: 100px;
+    text-align: center;
+}
+
+/* Small profile icons next to clock */
+.profile-icons {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 10px;
+}
+
+.profile-icon-btn {
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #00ff00;
+    background: rgba(0, 255, 0, 0.1);
+    color: #00ff00;
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.profile-icon-btn:hover {
+    background: rgba(0, 255, 0, 0.25);
+    box-shadow: 0 0 6px rgba(0, 255, 0, 0.6);
+}
+
+.profile-icon-btn:active {
+    background: rgba(0, 255, 0, 0.35);
+}
+
+/* Battery Widget */
+.battery-widget {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 10px;
+    border: 1px solid #00ff00;
+    background: rgba(0, 255, 0, 0.05);
+    font-size: 18px;
+}
+
+.battery-icon {
+    font-size: 20px;
+}
+
+.battery-level {
+    font-size: 16px;
+    text-shadow: 0 0 4px #00ff00;
+}
+
+/* Profile Dropdown */
+.profile-dropdown {
+    position: relative;
+}
+
+.profile-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    cursor: pointer;
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    transition: all 0.2s;
+}
+
+.profile-button:hover {
+    background: rgba(0, 255, 0, 0.2);
+    box-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+}
+
+.profile-icon {
+    font-size: 18px;
+}
+
+.dropdown-arrow {
+    font-size: 12px;
+    transition: transform 0.2s;
+}
+
+.profile-button.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.profile-menu {
+    position: absolute;
+    bottom: 55px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    border: 2px solid #00ff00;
+    min-width: 200px;
+    z-index: 1002;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+}
+
+.profile-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #00ff00;
+    transition: all 0.2s;
+    font-size: 16px;
+}
+
+.profile-item:last-child {
+    border-bottom: none;
+}
+
+.profile-item:hover {
+    background: rgba(0, 255, 0, 0.1);
+    text-shadow: 0 0 4px #00ff00;
+}
+
+.profile-avatar {
+    font-size: 20px;
+}
+
+/* Profile photo on dedicated profile pages */
+.profile-photo {
+  width: 120px;
+  height: 120px;
+  border: 2px solid #00ff00;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  display: block;
+  margin: 5px auto;
+  border-radius: 50%;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+/* Preview resume: kotak vertikal dengan garis hijau menyala (bukan lingkaran) */
+.profile-photo.andra-resume,
+.profile-photo.aidil-resume {
+  width: 180px;
+  height: 260px;
+  border-radius: 6px;        /* sudut sedikit membulat, bukan lingkaran */
+  object-fit: contain;       /* tampilkan gambar penuh, tidak terpotong */
+  filter: none;              /* brightness normal */
+}
+
+.profile-photo.profile-placeholder {
+    background: rgba(0, 255, 0, 0.05);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.profile-photo.profile-placeholder::before {
+    content: none;
+}
+
+/* Volume Widget */
+.volume-widget {
+    position: relative;
+}
+
+.volume-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.2s;
+}
+
+.volume-button:hover {
+    background: rgba(0, 255, 0, 0.2);
+    box-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+}
+
+.volume-slider {
+    position: absolute;
+    bottom: 55px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    border: 2px solid #00ff00;
+    padding: 15px;
+    z-index: 1002;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+}
+
+.volume-label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #00ff00;
+    text-align: center;
+}
+
+.volume-slider input[type="range"] {
+    width: 100px;
+    height: 8px;
+    background: #000;
+    outline: none;
+    border: 1px solid #00ff00;
+    cursor: pointer;
+}
+
+.volume-slider input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #00ff00;
+    cursor: pointer;
+    border: 1px solid #000;
+}
+
+.volume-slider input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #00ff00;
+    cursor: pointer;
+    border: 1px solid #000;
+}
+
+/* Retro Utility Widgets (Calculator & Minesweeper) */
+
+.retro-widget {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.95);
+    border: 2px solid #00ff00;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+    font-family: 'VT323', monospace;
+    color: #00ff00;
+    z-index: 900; /* Di bawah status bar (1001) agar tidak menimpa */
+}
+
+.calculator-widget {
+    left: 10px;
+    bottom: 60px; /* sedikit di atas status bar */
+    width: 220px;
+}
+
+.minesweeper-widget {
+    right: 10px;
+    bottom: 60px;
+    width: 200px;
+    height: 320px; /* orientasi lebih vertikal */
+}
+
+.retro-widget .widget-header {
+    background: #00ff00;
+    color: #000;
+    padding: 4px 10px;
+    font-size: 16px;
+    border-bottom: 2px solid #00ff00;
+    text-align: center;
+}
+
+.retro-widget .widget-body {
+    padding: 8px;
+    font-size: 14px;
+}
+
+/* Calculator Styles */
+
+.calc-display {
+    width: 100%;
+    margin-bottom: 6px;
+    padding: 4px 6px;
+    background: #000;
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    text-align: right;
+}
+
+.calc-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+}
+
+.calc-buttons button {
+    padding: 4px 0;
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    font-family: 'VT323', monospace;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.calc-buttons button:hover {
+    background: rgba(0, 255, 0, 0.25);
+}
+
+.calc-buttons .calc-equals {
+    grid-column: span 4;
+    background: rgba(0, 255, 0, 0.25);
+}
+
+/* Minesweeper Styles */
+
+.minesweeper-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 12px;
+}
+
+.minesweeper-info button {
+    padding: 2px 6px;
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    font-family: 'VT323', monospace;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.mines-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Papan ramping vertikal */
+    gap: 2px;
+}
+
+.mine-cell {
+    width: 100%;
+    padding-top: 100%; /* Buat kotak */
+    position: relative;
+    background: #000;
+    border: 1px solid #00ff00;
+    cursor: pointer;
+    font-size: 12px;
+    text-align: center;
+}
+
+.mine-cell span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.mine-cell.revealed {
+    background: rgba(0, 255, 0, 0.1);
+}
+
+.mine-cell.mine {
+    background: rgba(255, 0, 0, 0.2);
+}
+
+.mine-cell.flagged span {
+    color: #ffff00;
+}
+
+.mine-cell.disabled {
+    cursor: default;
+}
